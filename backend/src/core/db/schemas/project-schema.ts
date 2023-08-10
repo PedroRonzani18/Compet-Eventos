@@ -1,12 +1,16 @@
-import { Project } from '@/domain/projects/entities/project';
+import { Project, ProjectProps } from '@/domain/projects/entities/project';
 import mongoose from 'mongoose';
 
-const schema = new mongoose.Schema<Project>(
+export interface existentCompetiano extends ProjectProps {
+  id: string
+}
+
+const schema = new mongoose.Schema<ProjectProps>(
   {
-    title: String,
-    author: String,
-    description: String,
-    image: String,
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true },
   },
   {
     versionKey: false,
@@ -19,4 +23,4 @@ const schema = new mongoose.Schema<Project>(
     },
   },
 )
-export const ProjectModel = mongoose.model<Project>("ProjectsInter", schema)
+export const ProjectModel = mongoose.model<ProjectProps>("ProjectsInter", schema)

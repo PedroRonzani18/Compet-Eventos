@@ -1,5 +1,5 @@
-import { Project } from "../entities/project"
-import { ProjectsRepository } from "../repositories/interfaces/projects-repository"
+import { ProjectProps } from "../../entities/project"
+import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
 
 interface CreateProjectUseCaseRequest {
     title: String,
@@ -9,7 +9,7 @@ interface CreateProjectUseCaseRequest {
 }
 
 interface CreateProjectUseCaseResponse {
-    project: Project
+    project: ProjectProps
 }
 
 export class CreateProjectUseCase {
