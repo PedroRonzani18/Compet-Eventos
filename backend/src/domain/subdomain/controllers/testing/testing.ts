@@ -6,5 +6,7 @@ export async function testing(request: FastifyRequest, reply: FastifyReply) { //
 	
 	return reply
 		.status(201) // retorna sucesso
-		.send("Teste funcionando"); // com resposta vazia, pois em criação não precisa devolver nada do db
+		.send({
+			message: "yessir"
+		}); // com resposta vazia, pois em criação não precisa devolver nada do db
 }
