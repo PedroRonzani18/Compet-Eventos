@@ -1,5 +1,5 @@
-import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
-import { Project } from "@/core/db/schemas/project"
+import { Project } from "../entities/project"
+import { ProjectsRepository } from "../repositories/interfaces/projects-repository"
 
 interface CreateProjectUseCaseRequest {
     title: String,
@@ -16,10 +16,10 @@ export class CreateProjectUseCase {
 
     constructor(private projectsRepository: ProjectsRepository) { }
 
-    async execute({ description, author, image, title }: CreateProjectUseCaseRequest): Promise<CreateProjectUseCaseResponse> {
+    async execute({ author, description, image, title }: CreateProjectUseCaseRequest): Promise<CreateProjectUseCaseResponse> {
 
         const project = await this.projectsRepository.create({
-            description, title, author, image
+            author, description, image, title
         })
 
         return { project }
