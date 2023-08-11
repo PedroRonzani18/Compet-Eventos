@@ -11,7 +11,7 @@ function Navbar({children}:INavbarProps) {
       {pages.map((page)=>(
         <li key={page.name}>
           <Link href={page.url}>
-            {page.name}
+            {page.name}q
           </Link>
         </li>
       ))}
