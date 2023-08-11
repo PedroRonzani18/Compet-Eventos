@@ -1,4 +1,4 @@
-import { UsersRepository } from "../../repositories/interfaces/users-repository"
+import { UsersRepository } from "../repositories/interfaces/users-repository"
 
 interface CreateUserUseCaseRequest {
     title: String,
