@@ -1,14 +1,14 @@
 import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
-export interface UserProps {
-    name: String,
-    email: String,
-    profile_picture?: String,
-    linkedin_url?: String,
-    github_url?: String,
-    favourite_projects?: String[]
-}
+export type UserProps = {
+    name: string,
+    email: string,
+    profile_picture?: string,
+    linkedin_url?: string,
+    github_url?: string,
+    favourite_projects?: string[]
+};
 
 export class User extends Entity<UserProps> {
 

@@ -2,12 +2,12 @@ import { UserProps } from "../../entities/user"
 import { UsersRepository } from "../../repositories/interfaces/users-repository"
 
 interface CreateUserUseCaseRequest {
-    name: String,
-    email: String,
-    profile_picture?: String,
-    linkedin_url?: String,
-    github_url?: String,
-    favourite_projects?: String[]
+    name: string,
+    email: string,
+    profile_picture?: string,
+    linkedin_url?: string,
+    github_url?: string,
+    favourite_projects?: string[]
 }
 
 interface CreateUserUseCaseResponse {

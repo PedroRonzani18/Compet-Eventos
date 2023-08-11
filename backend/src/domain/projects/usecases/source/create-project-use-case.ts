@@ -1,11 +1,12 @@
+import { UserProps } from "@/domain/users/entities/user"
 import { ProjectProps } from "../../entities/project"
 import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
 
 interface CreateProjectUseCaseRequest {
-    title: String,
-    author: String,
-    description: String,
-    image: String,
+    title: string,
+    author: UserProps[],
+    description: string,
+    image: string,
 }
 
 interface CreateProjectUseCaseResponse {

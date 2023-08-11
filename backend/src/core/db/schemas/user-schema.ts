@@ -1,14 +1,14 @@
 import { UserProps } from '@/domain/users/entities/user';
 import mongoose from 'mongoose';
 
-const schema = new mongoose.Schema<UserProps>(
+export const userSchema = new mongoose.Schema<UserProps>(
   {
-    name: { type:String, required: true },
-    email: { type:String, required: true },
-    profile_picture: { type:String, required: false },
-    linkedin_url: { type:String, required: false },
-    github_url: { type:String, required: false },
-    favourite_projects: { type:[String], required: false },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    profile_picture: { type: String },
+    linkedin_url: { type: String },
+    github_url: { type: String },
+    favourite_projects: [{ type: String }],
   },
   {
     versionKey: false,
@@ -21,4 +21,4 @@ const schema = new mongoose.Schema<UserProps>(
     },
   },
 )
-export const UserModel = mongoose.model<UserProps>("People", schema)
+export const UserModel = mongoose.model<UserProps>("People", userSchema)
