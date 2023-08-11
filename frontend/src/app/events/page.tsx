@@ -4,13 +4,18 @@ import EventCarousel from "@/components/carousel/EventCarousel";
 async function getEvents() {
   const events:event[] = [
     {
-      description:"akjsdhalisdhads",
-      name:"event 1",
+      description:"lucas legal",
+      name:"joinha",
       slug:"event-1"
     },
     {
-      description:"akjsdhalisdhads",
-      name:"event 2",
+      description:"pedro animal",
+      name:"portilho de portilho ronzani",
+      slug:"event-2"
+    },
+    {
+      description:"henricao semigod.",
+      name:"programador de eletrica",
       slug:"event-2"
     }
   ]
