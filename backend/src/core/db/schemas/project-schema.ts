@@ -1,4 +1,4 @@
-import { Project, ProjectProps } from '@/domain/projects/entities/project';
+import { ProjectProps } from '@/domain/projects/entities/project';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema<ProjectProps>(
