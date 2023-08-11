@@ -1,14 +1,10 @@
 import { Project, ProjectProps } from '@/domain/projects/entities/project';
 import mongoose from 'mongoose';
 
-export interface existentCompetiano extends ProjectProps {
-  id: string
-}
-
 const schema = new mongoose.Schema<ProjectProps>(
   {
     title: { type: String, required: true },
-    author: { type: String, required: true },
+    author: { type: [String], required: true },
     description: { type: String, required: true },
     image: { type: String, required: true },
   },

@@ -11,7 +11,7 @@ const MONGODB_PASSWORD =
      encodeURIComponent(process.env.MONGODB_PASSWORD ? process.env.MONGODB_PASSWORD : '') 
   || process.env.MONGODB_PASSWORD
 
-const MONGODB_URI = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@sitecompet.nk50e.mongodb.net/site_compet?retryWrites=true&w=majority`
+const MONGODB_URI = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@cluster0.a5trgdx.mongodb.net/`
 
 if (!MONGODB_USER || MONGODB_URI == '' || !MONGODB_PASSWORD || MONGODB_PASSWORD == '') {
   mongoose.connect('mongodb://localhost:27017/test').then(() => {

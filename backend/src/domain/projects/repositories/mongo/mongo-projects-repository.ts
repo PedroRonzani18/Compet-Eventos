@@ -10,13 +10,13 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
     }
 
     async create(data: ProjectProps): Promise<ProjectProps> {
-        // const model = new this.projectsModel(data)
-// 
-        // const createdData = await model.save()
-        // if (!createdData) { throw new Error("Failed to create new Data") }
-        // 
-        // const result: ProjectProps = createdData.toJSON<ProjectProps>()
-        return data
+        const model = new this.projectsModel(data)
+
+        const createdData = await model.save()
+        if (!createdData) { throw new Error("Failed to create new Data") }
+        
+        const result: ProjectProps = createdData.toJSON<ProjectProps>()
+        return result
     }
     
     async edit(data: any): Promise<Project> {

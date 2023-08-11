@@ -3,7 +3,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 export interface ProjectProps {
     title: String,
-    author: String,
+    author: String[],
     description: String,
     image: String,
     createdAt?: Date // é opcional para passar como parâmetro, mas n para ter no db (por isso optional)
