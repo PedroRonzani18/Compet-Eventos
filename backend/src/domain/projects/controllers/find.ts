@@ -12,7 +12,7 @@ export async function find(request: FastifyRequest, reply: FastifyReply) { // cr
     
 	const findProjectByTitletUseCase = makeFindProjectByTitleUseCaseRequest();
 
-	const project = await findProjectByTitletUseCase.execute({title})
+	const project = (await findProjectByTitletUseCase.execute({title})).value
 
 	if(!project) return reply
 		.status(400)
@@ -20,6 +20,6 @@ export async function find(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	return reply
 		.status(201) // retorna sucesso
-		.send({ project }); 
+		.send( project ); 
 }
 

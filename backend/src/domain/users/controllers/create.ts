@@ -17,12 +17,12 @@ export async function create(request: FastifyRequest, reply: FastifyReply) { // 
 
 	const createUserUseCase = makeCreateUserUseCase()
 
-	const User = await createUserUseCase.execute({
+	const user = (await createUserUseCase.execute({
 		email, favourite_projects, github_url, linkedin_url, name, profile_picture
-	})
+	})).value
 
 	return reply
 		.status(201) // retorna sucesso
-		.send( User ); // com resposta vazia, pois em criação não precisa devolver nada do db
+		.send( user ); // com resposta vazia, pois em criação não precisa devolver nada do db
 }
 
