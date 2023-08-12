@@ -5,9 +5,11 @@ import mongoose from 'mongoose';
 const schema = new mongoose.Schema<ProjectProps>(
   {
       title: { type: String, required: true },
-      author: [userSchema], // Use the userSchema here
+      author: [userSchema], 
       description: { type: String, required: true },
       image: { type: String, required: true },
+      created_at: { type: Date },
+      updated_at: { type: Date }
   },
   {
       versionKey: false,
@@ -21,4 +23,4 @@ const schema = new mongoose.Schema<ProjectProps>(
   }
 );
 
-export const ProjectModel = mongoose.model<ProjectProps>("ProjectsInter", schema)
+export const ProjectModel = mongoose.model<ProjectProps>("projects", schema)
