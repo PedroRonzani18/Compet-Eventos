@@ -17,9 +17,9 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	const { user_name, email, favourite_projects, github_url, linkedin_url, name, profile_picture } = editUserBodySchema.parse(request.body);
 
-	const findUserByTitletUseCase = makeFindUserByNameUseCase();
+	const findUserByUsertUseCase = makeFindUserByNameUseCase();
 
-	const user = await findUserByTitletUseCase.execute({ name: user_name })
+	const user = await findUserByUsertUseCase.execute({ name: user_name })
 
 	if (!user) return reply
 		.status(400)
