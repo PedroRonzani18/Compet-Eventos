@@ -1,6 +1,7 @@
-import { Project, ProjectProps } from "../../entities/project"
+import { EditProjectProps, ProjectProps } from "../../entities/project"
 
-export interface ProjectsRepository { // define quais metodos vao existir na comunicação entre repositorio e casos de uso
+export interface ProjectsRepository { 
     create(data: ProjectProps): Promise<ProjectProps>
-    edit(data: any): Promise<Project>
+    edit(projectName: string, data: EditProjectProps): Promise<ProjectProps | undefined>
+    findByTitle(title: string): Promise<ProjectProps | undefined>
 }
