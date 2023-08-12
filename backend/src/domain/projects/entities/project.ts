@@ -7,8 +7,8 @@ export type ProjectProps = {
     author: UserProps[];
     description: string;
     image: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    created_at?: Date;
+    updated_at?: Date;
 }
 
 export type EditProjectProps = {
@@ -28,6 +28,6 @@ export class Project extends Entity<ProjectProps> {
     get author() { return this.props.author }
     get description() { return this.props.description }
     get image() { return this.props.image }
-    get createdAt() { return this.props.createdAt }
-    get updatedAt() { return this.props.updatedAt }
+    get createdAt() { return this.props.created_at }
+    get updatedAt() { return this.props.updated_at }
 }

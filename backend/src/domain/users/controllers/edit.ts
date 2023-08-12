@@ -1,4 +1,3 @@
-import { createUserBodySchema } from '@/domain/users/controllers/create';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { makeEditUserUseCase } from '../usecases/factories/make-edit-user-use-case';
@@ -34,6 +33,6 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	return reply
 		.status(201) // retorna sucesso
-		.send({ editedUser });
+		.send( editedUser );
 }
 

@@ -1,13 +1,16 @@
+import { Either, left, right } from "@/core/types/either";
 import { ProjectProps } from "../../entities/project"
 import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error";
 
 interface FindProjectByTitleUseCaseRequest {
     title: string
 }
 
-interface FindProjectByTitleUseCaseResponse {
-    project: ProjectProps
-}
+type FindProjectByTitleUseCaseResponse = Either<
+    ResourceNotFoundError,
+    { project: ProjectProps }
+>
 
 export class FindProjectByTitletUseCase {
 
@@ -17,8 +20,9 @@ export class FindProjectByTitletUseCase {
 
         const project = await this.projectsRepository.findByTitle(title);
 
-        if(!project) throw new Error("Project not found by title")
+        if(!project) 
+            return left(new ResourceNotFoundError("Project by Title"))
 
-        return { project }
+        return right({ project })
     }
 }

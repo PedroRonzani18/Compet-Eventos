@@ -8,6 +8,8 @@ export type UserProps = {
     linkedin_url?: string,
     github_url?: string,
     favourite_projects?: string[]
+    created_at?: Date
+    updated_at?: Date
 };
 
 

@@ -17,6 +17,8 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
     }
 
     async create(data: ProjectProps): Promise<ProjectProps> {
+        data.updated_at = new Date()
+
         const model = new this.projectsModel(data)
 
         const createdData = await model.save()

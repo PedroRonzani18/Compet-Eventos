@@ -9,6 +9,8 @@ export const userSchema = new mongoose.Schema<UserProps>(
     linkedin_url: { type: String },
     github_url: { type: String },
     favourite_projects: [{ type: String }],
+    created_at: { type: Date },
+    updated_at: { type: Date }
   },
   {
     versionKey: false,
@@ -21,4 +23,4 @@ export const userSchema = new mongoose.Schema<UserProps>(
     },
   },
 )
-export const UserModel = mongoose.model<UserProps>("People", userSchema)
+export const UserModel = mongoose.model<UserProps>("users", userSchema)

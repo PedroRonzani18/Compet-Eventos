@@ -10,6 +10,8 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
     }
 
     async create(data: UserProps): Promise<UserProps> {
+        data.created_at = new Date()
+
         const model = new this.usersModel(data)
 
         const createdData = await model.save()

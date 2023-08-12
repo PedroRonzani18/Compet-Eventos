@@ -1,3 +1,4 @@
+import { Either, right } from "@/core/types/either"
 import { UserProps } from "../../entities/user"
 import { UsersRepository } from "../../repositories/interfaces/users-repository"
 
@@ -10,9 +11,10 @@ interface CreateUserUseCaseRequest {
     favourite_projects?: string[]
 }
 
-interface CreateUserUseCaseResponse {
-    user: UserProps
-}
+type CreateUserUseCaseResponse = Either<
+    null,
+    { user: UserProps }
+>
 
 export class CreateUserUseCase {
 
@@ -24,6 +26,6 @@ export class CreateUserUseCase {
             email, favourite_projects, github_url, linkedin_url, name, profile_picture
         })
 
-        return { user }
+        return right({ user })
     }
 }
