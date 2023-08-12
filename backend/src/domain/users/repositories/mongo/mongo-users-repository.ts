@@ -1,5 +1,5 @@
 import { UserModel } from "@/core/db/schemas/user-schema";
-import { UserProps, User } from "../../entities/user";
+import { UserProps, EditUserProps } from "../../entities/user";
 import { UsersRepository } from "../interfaces/users-repository";
 import { DefaultMongoDBRepository } from "@/core/db/repositories/default-mongo-db-repository";
 
@@ -19,8 +19,19 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
         return result
     }
     
-    async edit(data: any): Promise<User> {
-        throw new Error("Method not implemented.");
+    async edit(name: string, data: EditUserProps): Promise<UserProps | undefined> {
+
+        const updatedMember = await this.usersModel.findOneAndUpdate({ name }, data, { new: true })
+
+        if (!updatedMember) { return }
+        const result: UserProps | undefined = updatedMember.toJSON<UserProps>()
+        return result
+    }
+
+    async findByName(name: string): Promise<UserProps | undefined> {
+        const competiano = await this.usersModel.findOne({ name })
+        const result: UserProps | undefined = competiano?.toJSON()
+        return result
     }
 
     public list(): UserProps[] | Promise<UserProps[]> {

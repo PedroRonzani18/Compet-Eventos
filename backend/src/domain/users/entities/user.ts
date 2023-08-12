@@ -10,6 +10,17 @@ export type UserProps = {
     favourite_projects?: string[]
 };
 
+
+export type EditUserProps = {
+    name?: string,
+    email?: string,
+    profile_picture?: string,
+    linkedin_url?: string,
+    github_url?: string,
+    favourite_projects?: string[]
+}
+
+
 export class User extends Entity<UserProps> {
 
     constructor(props: UserProps, id?: UniqueEntityID) {
