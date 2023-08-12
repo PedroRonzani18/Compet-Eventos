@@ -1,13 +1,21 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { UserProps } from '@/domain/users/entities/user'
 
-export interface ProjectProps {
-    title: String,
-    author: String[],
-    description: String,
-    image: String,
-    createdAt?: Date // é opcional para passar como parâmetro, mas n para ter no db (por isso optional)
-    updatedAt?: Date
+export type ProjectProps = {
+    title: string;
+    author: UserProps[];
+    description: string;
+    image: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export type EditProjectProps = {
+    title?: string;
+    author?: UserProps[];
+    description?: string;
+    image?: string;
 }
 
 export class Project extends Entity<ProjectProps> {

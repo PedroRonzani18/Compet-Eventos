@@ -1,4 +1,7 @@
+import { EditUserProps, User, UserProps } from "../../entities/user"
+
 export interface UsersRepository { // define quais metodos vao existir na comunicação entre repositorio e casos de uso
-    create(data: Prisma.UserCreateInput): Promise<User>
-    edit(data: any): Promise<User>
+    create(data: UserProps): Promise<UserProps>
+    edit(name: string, data: EditUserProps): Promise<UserProps | undefined>
+    findByName(name: string): Promise<UserProps | undefined>
 }
