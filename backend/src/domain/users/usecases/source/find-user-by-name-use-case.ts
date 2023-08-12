@@ -1,13 +1,16 @@
+import { Either, left, right } from "@/core/types/either";
 import { UserProps } from "../../entities/user"
 import { UsersRepository } from "../../repositories/interfaces/users-repository"
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error";
 
 interface FindUserByNameUseCaseRequest {
     name: string
 }
 
-interface FindUserByNameUseCaseResponse {
-    user: UserProps
-}
+type FindUserByNameUseCaseResponse = Either<
+    ResourceNotFoundError,
+    { user: UserProps }
+>
 
 export class FindUserByNametUseCase {
 
@@ -17,8 +20,9 @@ export class FindUserByNametUseCase {
 
         const user = await this.usersRepository.findByName(name);
 
-        if(!user) throw new Error("User not found by name")
+        if(!user) 
+            return left(new ResourceNotFoundError("User by name"))
 
-        return { user }
+        return right({ user })
     }
 }

@@ -1,5 +1,7 @@
 import { UserProps } from "@/domain/users/entities/user"
 import { UsersRepository } from "../../repositories/interfaces/users-repository"
+import { Either, left, right } from "@/core/types/either"
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 interface EditUserUseCaseRequest {
     user_name: string,
@@ -11,9 +13,10 @@ interface EditUserUseCaseRequest {
     favourite_projects?: string[]
 }
 
-interface EditUserUseCaseResponse {
-    user: UserProps
-}
+type EditUserUseCaseResponse = Either<
+    ResourceNotFoundError,
+    { user: UserProps }
+>
 
 export class EditUserUseCase {
 
@@ -23,8 +26,9 @@ export class EditUserUseCase {
 
         const user = await this.usersRepository.edit(user_name, { name, email, favourite_projects, github_url, linkedin_url, profile_picture } )
 
-        if (!user) throw new Error('User not found')
+        if (!user) 
+            return left(new ResourceNotFoundError("User"))
 
-        return { user }
+        return right({ user })
     }
 }

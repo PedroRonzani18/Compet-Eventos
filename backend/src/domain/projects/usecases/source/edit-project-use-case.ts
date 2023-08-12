@@ -1,6 +1,8 @@
 import { UserProps } from "@/domain/users/entities/user"
 import { ProjectProps } from "../../entities/project"
 import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
+import { Either, left, right } from "@/core/types/either"
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 interface EditProjectUseCaseRequest {
     project_title: string,
@@ -10,9 +12,10 @@ interface EditProjectUseCaseRequest {
     image?: string,
 }
 
-interface EditProjectUseCaseResponse {
-    project: ProjectProps
-}
+type EditProjectUseCaseResponse = Either<
+    ResourceNotFoundError,
+    { project: ProjectProps }
+>
 
 export class EditProjectUseCase {
 
@@ -20,10 +23,11 @@ export class EditProjectUseCase {
 
     async execute({ author, description, image, title, project_title }: EditProjectUseCaseRequest): Promise<EditProjectUseCaseResponse> {
 
-        const project = await this.projectsRepository.edit(project_title, { author, description, image, title})
+        const project = await this.projectsRepository.edit(project_title, { author, description, image, title })
 
-        if(!project) throw new Error('Project not found')
+        if (!project)
+            return left(new ResourceNotFoundError("Project"))
 
-        return { project }
+        return right({ project })
     }
 }

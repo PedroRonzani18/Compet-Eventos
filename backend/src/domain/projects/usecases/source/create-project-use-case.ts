@@ -1,6 +1,7 @@
 import { UserProps } from "@/domain/users/entities/user"
 import { ProjectProps } from "../../entities/project"
 import { ProjectsRepository } from "../../repositories/interfaces/projects-repository"
+import { Either, right } from "@/core/types/either"
 
 interface CreateProjectUseCaseRequest {
     title: string,
@@ -9,9 +10,10 @@ interface CreateProjectUseCaseRequest {
     image: string,
 }
 
-interface CreateProjectUseCaseResponse {
-    project: ProjectProps
-}
+type CreateProjectUseCaseResponse = Either<
+  null ,
+  { project: ProjectProps }
+>
 
 export class CreateProjectUseCase {
 
@@ -23,6 +25,6 @@ export class CreateProjectUseCase {
             author, description, image, title
         })
 
-        return { project }
+        return right({ project })
     }
 }
