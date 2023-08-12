@@ -4,13 +4,14 @@ import { makeCreateProjectUseCase } from '../usecases/factories/make-create-proj
 import { createUserBodySchema } from '@/domain/users/controllers/create';
 import { makeFindProjectByTitleUseCase } from '../usecases/factories/make-find-project-by-name-use-case';
 
+export 	const createProjectBodySchema = z.object({
+	title: z.string(),
+	author: createUserBodySchema.array(), // Change to array()
+	description: z.string(),
+	image: z.string(),
+});
+
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-	const createProjectBodySchema = z.object({
-		title: z.string(),
-		author: createUserBodySchema.array(), // Change to array()
-		description: z.string(),
-		image: z.string(),
-	});
 
 	const { author, description, image, title } = createProjectBodySchema.parse(request.body);
 

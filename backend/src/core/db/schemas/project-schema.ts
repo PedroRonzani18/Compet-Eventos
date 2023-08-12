@@ -2,7 +2,7 @@ import { ProjectProps } from '@/domain/projects/entities/project';
 import { userSchema } from './user-schema';
 import mongoose from 'mongoose';
 
-const schema = new mongoose.Schema<ProjectProps>(
+export const projectSchema = new mongoose.Schema<ProjectProps>(
   {
       title: { type: String, required: true },
       author: [userSchema], 
@@ -23,4 +23,4 @@ const schema = new mongoose.Schema<ProjectProps>(
   }
 );
 
-export const ProjectModel = mongoose.model<ProjectProps>("projects", schema)
+export const ProjectModel = mongoose.model<ProjectProps>("projects", projectSchema)
