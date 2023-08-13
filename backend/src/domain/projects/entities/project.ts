@@ -1,5 +1,6 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { PetProps } from '@/domain/pets/entities/pet';
 import { UserProps } from '@/domain/users/entities/user'
 
 export type ProjectProps = {
@@ -7,6 +8,8 @@ export type ProjectProps = {
     author: UserProps[];
     description: string;
     image: string;
+    pet_owner?: PetProps;
+    external_owners?: UserProps[];
     created_at?: Date;
     updated_at?: Date;
 }
