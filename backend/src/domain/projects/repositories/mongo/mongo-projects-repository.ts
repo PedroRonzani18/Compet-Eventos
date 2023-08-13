@@ -39,7 +39,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
     }
 
     async delete(title: string): Promise<ProjectProps | undefined> {
-        const deletedMember = await this.projectsModel.findOne({ name })
+        const deletedMember = await this.projectsModel.findOne({ title })
 
         if (!deletedMember) { return }
         
