@@ -23,12 +23,7 @@ export async function deleteUser(request: FastifyRequest, reply: FastifyReply) {
 
     const result = await deleteUserUseCase.execute({ name });
 
-    if (result.isLeft())
-        return reply
-            .status(403)
-            .send({ error: result.value })
-
     return reply
         .status(201)
-        .send({ removed: result.isRight() });
+        .send({ removed_user: result.value });
 }

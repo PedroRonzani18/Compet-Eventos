@@ -4,7 +4,7 @@ import { createUserBodySchema } from '../user/create';
 import { makeFindProjectByTitleUseCase } from '../../usecases/projects/factories/make-find-project-by-name-use-case';
 import { makeCreateProjectUseCase } from '../../usecases/projects/factories/make-create-project-use-case';
 
-export 	const createProjectBodySchema = z.object({
+export const createProjectBodySchema = z.object({
 	title: z.string(),
 	author: createUserBodySchema.array(), // Change to array()
 	description: z.string(),
@@ -32,5 +32,5 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
 	return reply
 		.status(201)
-		.send(project);
+		.send({ project_created: project });
 }

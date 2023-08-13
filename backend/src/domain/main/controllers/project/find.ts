@@ -9,17 +9,17 @@ export async function find(request: FastifyRequest, reply: FastifyReply) { // cr
 	});
 
 	const { title } = editProjectBodySchema.parse(request.params);
-    
+
 	const findProjectByTitletUseCase = makeFindProjectByTitleUseCase();
 
-	const project = await findProjectByTitletUseCase.execute({title})
+	const project = await findProjectByTitletUseCase.execute({ title })
 
-	if(project.isLeft()) return reply
+	if (project.isLeft()) return reply
 		.status(400)
-		.send({message: "Project not found."})
+		.send({ message: "Project not found." })
 
 	return reply
-		.status(201) // retorna sucesso
-		.send( project.value ); 
+		.status(201)
+		.send({ project_found: project.value });
 }
 

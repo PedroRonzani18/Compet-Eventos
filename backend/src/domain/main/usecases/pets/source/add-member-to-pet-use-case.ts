@@ -26,15 +26,15 @@ export class AddMemberToPetUseCase {
         if (!pet)
             return left(new ResourceNotFoundError("Pet"))
 
+        const newMember = await this.usersRepository.findByName(member_name)
+
+        if (!newMember)
+            return left(new ResourceNotFoundError("Member"))
+
         const userInPet = pet.members.find((member: User) => { member.name === member_name })
 
         if (userInPet)
             return left(new EntityAlreadyAdded("Member", "Pet"))
-
-        const newMember = await this.usersRepository.findByName(member_name)
-
-        if (!newMember)
-            return left(new ResourceNotFoundError("Member in Pet"))
 
         pet.members.push(newMember)
 

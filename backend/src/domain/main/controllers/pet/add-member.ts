@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { makeFindPetByNameUseCase } from '../../usecases/pets/factories/make-find-pet-by-name-use-case';
 import { makeFindUserByNameUseCase } from '../../usecases/users/factories/make-find-user-by-name-use-case';
 import { makeAddMemberToPetUseCase } from '../../usecases/pets/factories/make-add-member-use-case';
+import { EntityAlreadyAdded } from '@/core/errors/entity-already-added-error';
 
 export async function add_member(request: FastifyRequest, reply: FastifyReply) {
     const addMemberToPetBodySchema = z.object({
@@ -30,9 +31,17 @@ export async function add_member(request: FastifyRequest, reply: FastifyReply) {
 
     const addMemberToPetUseCase = makeAddMemberToPetUseCase();
 
-    await addMemberToPetUseCase.execute({ member_name, pet_name });
+    const addMemberToPetUseCaseResult = await addMemberToPetUseCase.execute({ member_name, pet_name });
+
+    if (addMemberToPetUseCaseResult.isLeft()) {
+        if (addMemberToPetUseCaseResult.value instanceof EntityAlreadyAdded) {
+            return reply
+                .status(400)
+                .send({ message: "Usuario ja presente no pet em questão." })
+        }
+    }
 
     return reply
         .status(201)
-        .send();
+        .send({ result: `User ${member_name} added to ${pet_name}`});
 }

@@ -33,6 +33,6 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	return reply
 		.status(201) // retorna sucesso
-		.send( editedUser );
+		.send({edited_user: editedUser.value });
 }
 
