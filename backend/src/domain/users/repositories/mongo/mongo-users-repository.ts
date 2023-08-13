@@ -36,6 +36,15 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
         return result
     }
 
+    async delete(title: string): Promise<UserProps | undefined> {
+        const deletedMember = await this.usersModel.findOne({ title })
+
+        if (!deletedMember) { return }
+        
+        await deletedMember.deleteOne();
+        return deletedMember.toJSON<UserProps>()
+    }
+
     public list(): UserProps[] | Promise<UserProps[]> {
         throw new Error("Method not implemented.");
     }

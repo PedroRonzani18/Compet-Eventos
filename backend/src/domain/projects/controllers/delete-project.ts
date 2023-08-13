@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { makeDeleteProjectUseCase } from '../usecases/factories/make-delete-project-use-case';
 import { makeFindProjectByTitleUseCase } from '../usecases/factories/make-find-project-by-name-use-case';
+import { makeDeleteProjectUseCase } from '../usecases/factories/make-delete-project-use-case';
 
 export async function deleteProject(request: FastifyRequest, reply: FastifyReply) {
     const createProjectBodySchema = z.object({
@@ -21,7 +21,7 @@ export async function deleteProject(request: FastifyRequest, reply: FastifyReply
 
     const deleteProjectUseCase = makeDeleteProjectUseCase();
 
-    const result = await deleteProjectUseCase.execute({ name });
+    const result = await deleteProjectUseCase.execute({ title });
 
     return reply
         .status(201)

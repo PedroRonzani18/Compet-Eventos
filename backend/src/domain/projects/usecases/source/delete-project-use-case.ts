@@ -4,7 +4,7 @@ import { ProjectsRepository } from "../../repositories/interfaces/projects-repos
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error"
 
 interface DeleteProjectUseCaseRequest {
-    name: string
+    title: string
 }
 
 type DeleteProjectUseCaseResponse = Either<
@@ -16,9 +16,9 @@ export class DeleteProjectUseCase {
 
     constructor(private projectsRepository: ProjectsRepository) { }
 
-    async execute({ name }: DeleteProjectUseCaseRequest): Promise<DeleteProjectUseCaseResponse> {
+    async execute({ title }: DeleteProjectUseCaseRequest): Promise<DeleteProjectUseCaseResponse> {
 
-        const project = await this.projectsRepository.delete(name)
+        const project = await this.projectsRepository.delete(title)
 
         if (!project) 
             return left(new ResourceNotFoundError("Project"))
