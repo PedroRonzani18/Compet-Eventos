@@ -9,6 +9,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
         super(projectsModel);
     }
 
+
     async findByTitle(title: string): Promise<ProjectProps | undefined> {
         const competiano = await this.projectsModel.findOne({ title })
         const result: ProjectProps | undefined = competiano?.toJSON()
@@ -35,6 +36,15 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
         if (!updatedMember) { return }
         const result: ProjectProps | undefined = updatedMember.toJSON<ProjectProps>()
         return result
+    }
+
+    async delete(title: string): Promise<ProjectProps | undefined> {
+        const deletedMember = await this.projectsModel.findOne({ title })
+
+        if (!deletedMember) { return }
+        
+        await deletedMember.deleteOne();
+        return deletedMember.toJSON<ProjectProps>()
     }
 
     public list(): ProjectProps[] | Promise<ProjectProps[]> {
