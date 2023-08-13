@@ -20,6 +20,6 @@ export async function find(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	return reply
 		.status(201) // retorna sucesso
-		.send(user.value);
+		.send({found_user: user.value});
 }
 

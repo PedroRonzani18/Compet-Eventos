@@ -28,12 +28,12 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	const editPetUseCase = makeEditPetUseCase();
 
-	const editedPet = (await editPetUseCase.execute({
+	const editedPet = await editPetUseCase.execute({
 		pet_name, campus, image, members, name, projects
-	})).value;
+	});
 
 	return reply
 		.status(201) // retorna sucesso
-		.send(editedPet);
+		.send({ result: editedPet.value });
 }
 

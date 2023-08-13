@@ -22,12 +22,12 @@ export async function like(request: FastifyRequest, reply: FastifyReply) { // cr
 
 	const likeUserUseCase = makeLikeProjectUseCase();
 
-	await likeUserUseCase.execute({
+	const likeUserUseCaseResult = await likeUserUseCase.execute({
 		user_name, project_name
 	});
 
 	return reply
 		.status(201) // retorna sucesso
-		.send();
+		.send({project_liked: likeUserUseCaseResult.value});
 }
 

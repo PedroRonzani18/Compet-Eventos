@@ -1,6 +1,7 @@
 import { Either, left, right } from "@/core/types/either";
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error";
 import { UsersRepository } from "@/domain/main/repositories/interfaces/users-repository";
+import { UserProps } from "@/domain/main/entities/user";
 
 interface LikeProjectUseCaseRequest {
     user_name: string
@@ -9,7 +10,7 @@ interface LikeProjectUseCaseRequest {
 
 type LikeProjectUseCaseResponse = Either<
     ResourceNotFoundError,
-    {}
+    { editedUser: UserProps }
 >
 
 export class LikeProjectUseCase {
@@ -25,12 +26,14 @@ export class LikeProjectUseCase {
 
         const favoriteProject = user?.favourite_projects?.find((project: string) => project === project_name);
 
-        if (!favoriteProject) {
+        if (!favoriteProject)
             user?.favourite_projects?.push(project_name)
-        }
 
-        await this.usersRepository.edit(user_name, user)
+        const editedUser = await this.usersRepository.edit(user_name, user)
 
-        return right({})
+        if (!editedUser)
+            return left(new ResourceNotFoundError("Usuario"))
+
+        return right({ editedUser })
     }
 }
