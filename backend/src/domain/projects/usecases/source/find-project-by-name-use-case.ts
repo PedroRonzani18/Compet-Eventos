@@ -20,7 +20,7 @@ export class FindProjectByTitletUseCase {
 
         const project = await this.projectsRepository.findByTitle(title);
 
-        if(!project) 
+        if (!project)
             return left(new ResourceNotFoundError("Project by Title"))
 
         return right({ project })

@@ -11,8 +11,8 @@ interface CreateProjectUseCaseRequest {
 }
 
 type CreateProjectUseCaseResponse = Either<
-  null ,
-  { project: ProjectProps }
+    null,
+    { project: ProjectProps }
 >
 
 export class CreateProjectUseCase {

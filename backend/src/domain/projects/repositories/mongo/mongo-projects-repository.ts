@@ -23,11 +23,11 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
 
         const createdData = await model.save()
         if (!createdData) { throw new Error("Failed to create new Data") }
-        
+
         const result: ProjectProps = createdData.toJSON<ProjectProps>()
         return result
     }
-    
+
     async edit(title: string, data: EditProjectProps): Promise<ProjectProps | undefined> {
 
         const updatedMember = await this.projectsModel.findOneAndUpdate({ title }, data, { new: true })
