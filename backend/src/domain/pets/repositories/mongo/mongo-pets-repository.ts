@@ -13,7 +13,6 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
         const competiano = await this.petsModel.findOne({ name })
         const result: PetProps | undefined = competiano?.toJSON()
         return result
-
     }
 
     async create(data: PetProps): Promise<PetProps> {
@@ -35,6 +34,15 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
         if (!updatedMember) { return }
         const result: PetProps | undefined = updatedMember.toJSON<PetProps>()
         return result
+    }
+
+    async delete(name: string): Promise<PetProps | undefined> {
+        const deletedMember = await this.petsModel.findOne({ name })
+
+        if (!deletedMember) { return }
+        
+        await deletedMember.deleteOne();
+        return deletedMember.toJSON<PetProps>()
     }
 
     public list(): PetProps[] | Promise<PetProps[]> {
