@@ -19,6 +19,7 @@ export type EditPetProps = {
     campus?: string
     members?: UserProps[]
     projects?: ProjectProps[]
+    updated_at?: Date
 }
 
 export class Pet extends Entity<PetProps> {

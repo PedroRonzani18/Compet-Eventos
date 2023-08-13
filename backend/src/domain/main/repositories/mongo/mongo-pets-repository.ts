@@ -29,6 +29,8 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
     async edit(name: string, data: EditPetProps): Promise<PetProps | undefined> {
 
+        data.updated_at = new Date()
+
         const updatedMember = await this.petsModel.findOneAndUpdate({ name }, data, { new: true })
 
         if (!updatedMember) { return }

@@ -31,6 +31,8 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
 
     async edit(title: string, data: EditProjectProps): Promise<ProjectProps | undefined> {
 
+        data.updated_at = new Date()
+
         const updatedMember = await this.projectsModel.findOneAndUpdate({ title }, data, { new: true })
 
         if (!updatedMember) { return }
