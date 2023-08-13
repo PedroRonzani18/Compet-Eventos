@@ -19,6 +19,7 @@ export type EditProjectProps = {
     author?: UserProps[];
     description?: string;
     image?: string;
+    updated_at?: Date;
 }
 
 export class Project extends Entity<ProjectProps> {

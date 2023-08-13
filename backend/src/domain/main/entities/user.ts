@@ -19,7 +19,8 @@ export type EditUserProps = {
     profile_picture?: string,
     linkedin_url?: string,
     github_url?: string,
-    favourite_projects?: string[]
+    favourite_projects?: string[],
+    updated_at?: Date
 }
 
 

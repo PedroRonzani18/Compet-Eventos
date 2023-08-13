@@ -23,6 +23,8 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
 
     async edit(name: string, data: EditUserProps): Promise<UserProps | undefined> {
 
+        data.updated_at = new Date()
+
         const updatedMember = await this.usersModel.findOneAndUpdate({ name }, data, { new: true })
 
         if (!updatedMember) { return }
