@@ -1,4 +1,4 @@
-import { UserProps } from '@/domain/users/entities/user';
+import { UserProps } from '@/domain/main/entities/user';
 import mongoose from 'mongoose';
 
 export const userSchema = new mongoose.Schema<UserProps>(

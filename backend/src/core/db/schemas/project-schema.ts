@@ -1,7 +1,6 @@
-import { ProjectProps } from '@/domain/projects/entities/project';
+import { ProjectProps } from '@/domain/main/entities/project';
 import { userSchema } from './user-schema';
 import mongoose from 'mongoose';
-import { petSchema } from './pet-schema';
 
 export const projectSchema = new mongoose.Schema<ProjectProps>(
     {
