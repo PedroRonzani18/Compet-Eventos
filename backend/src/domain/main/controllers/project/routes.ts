@@ -5,8 +5,8 @@ import { find } from './find';
 import { deleteProject } from './delete-project';
 
 export async function projectRoutes(app: FastifyInstance) {
-    app.post('/project/create', create)
-    app.put ('/project/edit', edit)
-    app.get ('/project/find', find)
-    app.delete('/project/delete', deleteProject)
+    app.post('/create', create)
+    app.put ('/edit', edit)
+    app.get ('/find/:title', find)
+    app.delete('/delete', deleteProject)
 }

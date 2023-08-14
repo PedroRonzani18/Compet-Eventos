@@ -3,10 +3,12 @@ import { create } from './create';
 import { edit } from './edit';
 import { like } from './like';
 import { deleteUser } from './delete';
+import { find } from './find';
 
 export async function userRoutes(app: FastifyInstance) {
-    app.post('/user/create', create)
-    app.put('/user/edit', edit)
-    app.put('/user/like', like)
-    app.delete('/user/delete', deleteUser)
+    app.post('/create', create)
+    app.put('/edit', edit)
+    app.put('/like', like)
+    app.delete('/delete', deleteUser)
+    app.get('/find/:name', find)
 }

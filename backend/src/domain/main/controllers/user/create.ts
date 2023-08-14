@@ -23,7 +23,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) { // 
 	if (possibleUser.isRight())
 		return reply
 			.status(400)
-			.send("Proibido criar mais d eum suuario com o mesmo nome.")
+			.send({error_message: "Proibido criar mais de um usuario com o mesmo nome."})
 
 	const createUserUseCase = makeCreateUserUseCase()
 

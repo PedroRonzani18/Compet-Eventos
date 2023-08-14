@@ -5,6 +5,6 @@ import fastify from 'fastify'
 
 export const app = fastify()
 
-app.register(userRoutes)
-app.register(projectRoutes)
-app.register(petRoutes) 
+app.register(userRoutes, {prefix: 'user'})
+app.register(projectRoutes, {prefix: 'project'})
+app.register(petRoutes, {prefix: 'pet'}) 
