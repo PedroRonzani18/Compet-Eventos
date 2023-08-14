@@ -9,7 +9,6 @@ interface CreatePetUseCaseRequest {
     image: string
     campus: string
     members: UserProps[]
-    projects: ProjectProps[]
 }
 
 type CreatePetUseCaseResponse = Either<
@@ -21,10 +20,12 @@ export class CreatePetUseCase {
 
     constructor(private petsRepository: PetsRepository) { }
 
-    async execute({ campus, image, members, name, projects, }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
+    async execute({ campus, image, members, name, }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
+
+        const emptyProjects: ProjectProps[] = []
 
         const pet = await this.petsRepository.create({
-            campus, image, members, name, projects
+            campus, image, members, name, projects: emptyProjects
         })
 
         return right({ pet })

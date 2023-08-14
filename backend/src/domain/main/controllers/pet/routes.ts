@@ -10,5 +10,5 @@ export async function petRoutes(app: FastifyInstance) {
     app.put ('/edit', edit)
     app.get ('/find/:name', find)
     app.put ('/add-member', add_member)
-    app.delete('/delete', deletePet)
+    app.delete('/delete',deletePet)
 }
