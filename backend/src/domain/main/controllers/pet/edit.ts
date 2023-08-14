@@ -1,11 +1,18 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { createUserBodySchema } from '../user/create';
-import { createProjectBodySchema } from '../project/create';
 import { makeFindPetByNameUseCase } from '../../usecases/pets/factories/make-find-pet-by-name-use-case';
 import { makeEditPetUseCase } from '../../usecases/pets/factories/make-edit-pet-use-case';
 import { makeFindUserByNameUseCase } from '../../usecases/users/factories/make-find-user-by-name-use-case';
 import { makeCheckUserRoleUseCase } from '../../usecases/users/factories/make-check-user-role-use-case';
+
+export const editProjectBodySchema = z.object({
+	title: z.string(),
+	author: createUserBodySchema.array(), // Change to array()
+	description: z.string(),
+	image: z.string(),
+	creating_user: z.string()
+});
 
 export async function edit(request: FastifyRequest, reply: FastifyReply) { // cria um usuario
 
@@ -15,7 +22,7 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 		image: z.string(),
 		campus: z.string(),
 		members: createUserBodySchema.array(),
-		projects: createProjectBodySchema.array(),
+		projects: editProjectBodySchema.array(),
 		creating_user: z.string()
 	});
 
@@ -51,6 +58,8 @@ export async function edit(request: FastifyRequest, reply: FastifyReply) { // cr
 		.send({ message: "Pet not Found for Editing." })
 
 	const editPetUseCase = makeEditPetUseCase();
+
+
 
 	const editedPet = await editPetUseCase.execute({
 		pet_name, campus, image, members, name, projects

@@ -1,14 +1,14 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { createUserBodySchema } from '../user/create';
 import { makeFindProjectByTitleUseCase } from '../../usecases/projects/factories/make-find-project-by-name-use-case';
 import { makeCreateProjectUseCase } from '../../usecases/projects/factories/make-create-project-use-case';
 import { makeFindUserByNameUseCase } from '../../usecases/users/factories/make-find-user-by-name-use-case';
 import { makeCheckUserRoleUseCase } from '../../usecases/users/factories/make-check-user-role-use-case';
+import { UserProps } from '../../entities/user';
 
 export const createProjectBodySchema = z.object({
 	title: z.string(),
-	author: createUserBodySchema.array(), // Change to array()
+	author: z.array(z.string()), // Change to array()
 	description: z.string(),
 	image: z.string(),
 	creating_user: z.string()
@@ -48,10 +48,19 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 			.status(400)
 			.send({ message: "Proibido adicionar projetos com mesmo nome." })
 
+	const addible_members: UserProps[] = []
+
+	for (let i = 0; i < author.length; i++) {
+		const foundMember = await findUserUseCase.execute({ name: author[i] })
+
+		if (foundMember.isRight())
+			addible_members.push(foundMember.value.user)
+	}
+
 	const createPRojectUseCase = makeCreateProjectUseCase();
 
 	const project = (await createPRojectUseCase.execute({
-		author, description, image, title
+		author: addible_members, description, image, title
 	})).value;
 
 	return reply
