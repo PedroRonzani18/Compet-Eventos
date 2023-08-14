@@ -8,7 +8,8 @@ interface CreateUserUseCaseRequest {
     profile_picture?: string,
     linkedin_url?: string,
     github_url?: string,
-    favourite_projects?: string[]
+    favourite_projects?: string[],
+    role: string
 }
 
 type CreateUserUseCaseResponse = Either<
@@ -20,10 +21,10 @@ export class CreateUserUseCase {
 
     constructor(private usersRepository: UsersRepository) { }
 
-    async execute({ email, favourite_projects, github_url, linkedin_url, name, profile_picture }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
+    async execute({ email, favourite_projects, github_url, linkedin_url, name, profile_picture, role }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
 
         const user = await this.usersRepository.create({
-            email, favourite_projects, github_url, linkedin_url, name, profile_picture
+            email, favourite_projects, github_url, linkedin_url, name, profile_picture, role
         })
 
         return right({ user })

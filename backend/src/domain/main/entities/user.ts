@@ -10,6 +10,7 @@ export type UserProps = {
     favourite_projects?: string[]
     created_at?: Date
     updated_at?: Date
+    role: string
 };
 
 

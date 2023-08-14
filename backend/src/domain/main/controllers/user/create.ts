@@ -9,12 +9,13 @@ export const createUserBodySchema = z.object({ // para criar um usuario e necess
 	profile_picture: z.string().optional(),
 	linkedin_url: z.string().optional(),
 	github_url: z.string().optional(),
-	favourite_projects: z.string().array().optional()
+	favourite_projects: z.string().array().optional(),
+	role: z.string()
 });
 
 export async function create(request: FastifyRequest, reply: FastifyReply) { // cria um usuario
 
-	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture } = createUserBodySchema.parse(request.body);
+	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture, role } = createUserBodySchema.parse(request.body);
 
 	const findUserUseCase = makeFindUserByNameUseCase()
 
@@ -28,7 +29,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) { // 
 	const createUserUseCase = makeCreateUserUseCase()
 
 	const user = await createUserUseCase.execute({
-		email, favourite_projects, github_url, linkedin_url, name, profile_picture
+		email, favourite_projects, github_url, linkedin_url, name, profile_picture, role
 	})
 
 	return reply
