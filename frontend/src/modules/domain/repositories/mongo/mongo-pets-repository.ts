@@ -2,7 +2,7 @@ import { PetsRepository } from "../interfaces/pets-repository";
 import { EditPetProps, PetProps } from "../../entities/pet";
 import { PetModel } from "@/modules/core/db/schemas/pet-schema";
 import { DefaultMongoDBRepository } from "@/modules/core/db/repositories/default-mongo-db-repository";
-import { connectToDatabase } from "@/modules/core/db";
+import connectDB from "@/modules/core/db/connect";
 
 export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> implements PetsRepository {
 
@@ -12,7 +12,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
     async findByName(name: string): Promise<PetProps | undefined> {
 
-        connectToDatabase()
+        connectDB()
 
         const competiano = await this.petsModel.findOne({ name })
         const result: PetProps | undefined = competiano?.toJSON()
@@ -22,7 +22,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
     async create(data: PetProps): Promise<PetProps> {
         data.updated_at = new Date()
 
-        connectToDatabase()
+        connectDB()
 
         const model = new this.petsModel(data)
 
@@ -37,7 +37,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
         data.updated_at = new Date()
 
-        connectToDatabase()
+        connectDB()
 
         const updatedMember = await this.petsModel.findOneAndUpdate({ name }, data, { new: true })
 
@@ -48,7 +48,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
     async delete(name: string): Promise<PetProps | undefined> {
         
-        connectToDatabase()
+        connectDB()
 
         const deletedMember = await this.petsModel.findOne({ name })
 

@@ -1,8 +1,6 @@
 import { UserProps } from '@/modules/domain/entities/user';
 import mongoose from 'mongoose';
 
-export const user_roles = ['USER', 'ADMIN']
-
 export const userSchema = new mongoose.Schema<UserProps>(
   {
     name: { type: String, required: true },
@@ -26,4 +24,5 @@ export const userSchema = new mongoose.Schema<UserProps>(
     },
   },
 )
-export const UserModel = mongoose.model<UserProps>("users", userSchema)
+
+export const UserModel= mongoose.models.users || mongoose.model<UserProps>("users", userSchema);
