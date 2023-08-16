@@ -12,7 +12,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
     async findByName(name: string): Promise<PetProps | undefined> {
 
-        connectDB()
+        await connectDB()
 
         const competiano = await this.petsModel.findOne({ name })
         const result: PetProps | undefined = competiano?.toJSON()
@@ -22,7 +22,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
     async create(data: PetProps): Promise<PetProps> {
         data.updated_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const model = new this.petsModel(data)
 
@@ -37,7 +37,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
         data.updated_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const updatedMember = await this.petsModel.findOneAndUpdate({ name }, data, { new: true })
 
@@ -48,7 +48,7 @@ export class MongoPetsRepository extends DefaultMongoDBRepository<PetProps> impl
 
     async delete(name: string): Promise<PetProps | undefined> {
         
-        connectDB()
+        await connectDB()
 
         const deletedMember = await this.petsModel.findOne({ name })
 

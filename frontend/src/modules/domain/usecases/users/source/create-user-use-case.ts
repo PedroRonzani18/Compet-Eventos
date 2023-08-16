@@ -5,6 +5,7 @@ import { UsersRepository } from "@/modules/domain/repositories/interfaces/users-
 interface CreateUserUseCaseRequest {
     name: string,
     email: string,
+    password_hash: string,
     profile_picture?: string,
     linkedin_url?: string,
     github_url?: string,
@@ -21,10 +22,10 @@ export class CreateUserUseCase {
 
     constructor(private usersRepository: UsersRepository) { }
 
-    async execute({ email, favourite_projects, github_url, linkedin_url, name, profile_picture, role }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
+    async execute({ email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, password_hash }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
 
         const user = await this.usersRepository.create({
-            email, favourite_projects, github_url, linkedin_url, name, profile_picture, role
+            email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, password_hash
         })
 
         return right({ user })
