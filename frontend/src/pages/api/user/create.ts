@@ -1,8 +1,8 @@
 import { makeCreateUserUseCase } from '@/modules/domain/usecases/users/factories/make-create-user-use-case';
-import { makeFindUserByNameUseCase } from '@/modules/domain/usecases/users/factories/make-find-user-by-name-use-case';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { hash } from 'bcryptjs'
+import { makeFindUserByEmailUseCase } from '@/modules/domain/usecases/users/factories/make-find-user-by-email-use-case';
 
 export const createUserBodySchema = z.object({
 	name: z.string(),
@@ -24,14 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, password } = createUserBodySchema.parse(req.body);
 
-	const findUserUseCase = makeFindUserByNameUseCase();
+	const findUserEmailUseCase = makeFindUserByEmailUseCase()
 
-	const possibleUser = await findUserUseCase.execute({ name });
+	const possibleUserWithEmail = await findUserEmailUseCase.execute({ email })
 
-	if (possibleUser.isRight()) {
+	if (possibleUserWithEmail.isRight()) {
 		return res
 			.status(400)
-			.json({ error_message: "Proibido criar mais de um usuario com o mesmo nome." });
+			.json({ error_message: "Proibido criar mais de um usuario com o mesmo email." });
 	}
 
 	const password_hash = await hash(password, 6)
