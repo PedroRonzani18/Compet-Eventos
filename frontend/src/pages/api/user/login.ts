@@ -24,12 +24,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (possibleUser.isLeft())
         return res
             .status(400)
-            .json({ error_message: "Email invalidos." });
+            .json({ error_message: "Email e/ou senha inválido(s)." });
 
     if (!compare(password, possibleUser.value.user.password_hash))
         return res
             .status(400)
-            .json({ error_message: "sennha invalidos." });
+            .json({ error_message: "Email e/ou senha inválido(s)." });
 
     return res.status(201).json({ logged: true });
 
