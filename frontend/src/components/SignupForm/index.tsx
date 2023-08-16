@@ -3,7 +3,8 @@ import { handleSignup } from "@/lib/createUser";
 import { Box, Button, TextInput } from "@codelife-ui/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useCallback, useRef } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export function SignupForm() {
   const navigation = useRouter()
   const nameRef = useRef<HTMLInputElement>(null);
@@ -18,26 +19,31 @@ export function SignupForm() {
     const confRef=confirmRef.current
     if(confRef){
       if(passRef?.value!==confRef.value){
-        alert("As senhas não coincidem")
+        toast.error("As senhas não coincidem")
         return
       }
     }
     if(!nomeRef?.value || !mailRef?.value || !passRef?.value){
-      alert("Preencha todos os campos")
+      toast.error("Preencha todos os campos")
       return
     }
     if(passRef.value.length<8){
-      alert("A senha deve ter no mínimo 8 caracteres")
+      toast.error("A senha deve ter no mínimo 8 caracteres")
       return
     }
     const res = await handleSignup({email:mailRef.value,password:passRef.value,name:nomeRef.value})
     if(res.ok){
-      alert("Usuário cadastrado com sucesso")
+      toast.success("Usuário cadastrado com sucesso")
       return navigation.push('/login')
+    }
+    if(res.status>=400){
+      const error :{error_message:string}= await res.json()
+      toast.error(error.error_message)
     }
   },[nameRef,emailRef, passwordRef, confirmRef,navigation])
   return ( 
     <div className="flex flex-col items-center h-[100vh] justify-center">
+      <ToastContainer/>
       <Box
       as="form"
       className="w-[40%] flex flex-col justify-center items-center gap-4 bg-img-bg-compet bg-cover bg-center"
