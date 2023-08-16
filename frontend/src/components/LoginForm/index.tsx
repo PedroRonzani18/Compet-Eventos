@@ -28,6 +28,7 @@ export function LoginForm() {
           Senha
         <TextInput ref={passwordRef} placeholder="Insira sua senha" type="password"/>
         </label>
+        <p className="text-white">Não tem uma conta? <a href="/signup" className="text-blue-500">Cadastre-se</a></p>
         <Button type="submit" variant="tertiary"> Efetuar login</Button>
       </Box>
     </div>

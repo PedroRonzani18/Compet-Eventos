@@ -10,7 +10,7 @@ export const createUserBodySchema = z.object({
 	linkedin_url: z.string().optional(),
 	github_url: z.string().optional(),
 	favourite_projects: z.array(z.string()).optional(),
-	role: z.string(),
+	role: z.string().optional().default("USER"),
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
