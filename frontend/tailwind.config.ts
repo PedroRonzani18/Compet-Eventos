@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        img_bg_blue: "url('../assets/images.jpg')",
+        img_bg_blue: "url('/images.jpg')",
+        "img-bg-compet":"url(https://i.ibb.co/jhYMwNw/Fundo-Azul.jpg)"
       },
       colors: {
         paper: "#F5F5F5",

@@ -1,7 +1,9 @@
+import { LoginForm } from "@/components/LoginForm";
+
 function Login() {
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="h-[100vh] bg-img_bg_blue bg-no-repeat bg-center bg-cover">
+      <LoginForm/>
     </div>
    );
 }
