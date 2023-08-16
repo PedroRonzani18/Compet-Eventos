@@ -1,18 +1,28 @@
 'use client'
 import { handleLogin } from "@/lib/useLogin";
 import { Box, Button, TextInput } from "@codelife-ui/react";
+import { useRouter } from "next/navigation";
 import { FormEvent, useCallback, useRef } from "react";
 
 export function LoginForm() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const navigation = useRouter()
   const handleSubmit = useCallback(async(e:FormEvent)=>{
     e.preventDefault();
     const mailRef=emailRef.current
-    if(mailRef){
-      await handleLogin({email:mailRef.value})
+    const passRef = passwordRef.current
+    if(mailRef&&passRef){
+    const res= await handleLogin({email:mailRef.value,password:passRef.value})
+      if(res.ok){
+      return navigation.push('/dashboard')
+      }
+      if(res.status>=400){
+        const error :{error_message:string}=res.json as unknown as {error_message:string}
+        alert(error.error_message)
+      }
     }
-  },[emailRef])
+  },[emailRef,passwordRef,navigation])
   return ( 
     <div className="flex flex-col items-center h-[100vh] justify-center">
       <Box
