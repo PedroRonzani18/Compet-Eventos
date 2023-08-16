@@ -4,6 +4,7 @@ import { UniqueEntityID } from "@/modules/core/entities/unique-entity-id";
 export type UserProps = {
     name: string,
     email: string,
+    password_hash: string,
     profile_picture?: string,
     linkedin_url?: string,
     github_url?: string,

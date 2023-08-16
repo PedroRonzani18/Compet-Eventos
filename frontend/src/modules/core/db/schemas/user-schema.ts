@@ -5,6 +5,7 @@ export const userSchema = new mongoose.Schema<UserProps>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
+    password_hash: { type: String, required: true },
     profile_picture: { type: String },
     linkedin_url: { type: String },
     github_url: { type: String },
