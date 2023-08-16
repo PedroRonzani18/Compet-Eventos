@@ -1,5 +1,5 @@
 'use client'
-import { handleLogin } from "@/lib/useLogin";
+import { handleSignup } from "@/lib/createUser";
 import { Box, Button, TextInput } from "@codelife-ui/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useCallback, useRef } from "react";
@@ -30,7 +30,7 @@ export function SignupForm() {
       alert("A senha deve ter no mínimo 8 caracteres")
       return
     }
-    const res = await handleLogin({email:mailRef.value,password:passRef.value,name:nomeRef.value})
+    const res = await handleSignup({email:mailRef.value,password:passRef.value,name:nomeRef.value})
     if(res.ok){
       alert("Usuário cadastrado com sucesso")
       return navigation.push('/login')
