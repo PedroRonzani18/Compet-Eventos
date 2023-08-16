@@ -1,6 +1,7 @@
 import { makeFindUserByEmailUseCase } from '@/modules/domain/usecases/users/factories/make-find-user-by-email-use-case';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
+import { hash, compare } from 'bcryptjs'
 
 export const createUserBodySchema = z.object({
     email: z.string(),
@@ -23,12 +24,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (possibleUser.isLeft())
         return res
             .status(400)
-            .json({ error_message: "Email e/ou sennha invalidos." });
+            .json({ error_message: "Email invalidos." });
 
-    if (possibleUser.value.user.password_hash !== password)
+    if (!compare(password, possibleUser.value.user.password_hash))
         return res
             .status(400)
-            .json({ error_message: "Email e/ou sennha invalidos." });
+            .json({ error_message: "sennha invalidos." });
 
     return res.status(201).json({ logged: true });
 
