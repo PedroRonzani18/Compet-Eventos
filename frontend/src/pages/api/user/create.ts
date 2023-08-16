@@ -16,8 +16,8 @@ export const createUserBodySchema = z.object({
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method !== 'POST') {
 		return res
-		.status(405)
-		.end(); // Method Not Allowed
+			.status(405)
+			.end(); // Method Not Allowed
 	}
 
 	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, } = createUserBodySchema.parse(req.body);
