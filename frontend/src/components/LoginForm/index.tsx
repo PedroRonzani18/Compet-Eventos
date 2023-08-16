@@ -18,7 +18,7 @@ export function LoginForm() {
       return navigation.push('/dashboard')
       }
       if(res.status>=400){
-        const error :{error_message:string}=res.json as unknown as {error_message:string}
+        const error:{error_message:string} = await res.json()
         alert(error.error_message)
       }
     }
