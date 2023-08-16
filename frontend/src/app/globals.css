@@ -6,6 +6,7 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --background-color:#191970;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +25,24 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background: var(--background-color);
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #1d1d1d;
+    border-radius: 100vh;
+    border: 1px solid #191970;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+  }
 }

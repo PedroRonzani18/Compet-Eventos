@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
-      <body className={inter.className}>
+      <body className={`${inter.className} h-full scrollbar`}>
         <Header />
         {children}
       </body>
