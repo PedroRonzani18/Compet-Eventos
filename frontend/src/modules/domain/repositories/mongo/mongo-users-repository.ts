@@ -13,7 +13,7 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
     async create(data: UserProps): Promise<UserProps> {
         data.created_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const model = new this.usersModel(data)
 
@@ -29,7 +29,7 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
 
         data.updated_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const updatedMember = await this.usersModel.findOneAndUpdate({ name }, data, { new: true })
 
@@ -42,16 +42,26 @@ export class MongoUsersRepository extends DefaultMongoDBRepository<UserProps> im
 
     async findByName(name: string): Promise<UserProps | undefined> {
 
-        connectDB()
+        await connectDB()
 
         const competiano = await this.usersModel.findOne({ name })
         const result: UserProps | undefined = competiano?.toJSON()
         return result
     }
 
+
+    async findByEmail(email: string): Promise<UserProps | undefined> {
+
+        await connectDB()
+
+        const competiano = await this.usersModel.findOne({ email })
+        const result: UserProps | undefined = competiano?.toJSON()
+        return result
+    }
+
     async delete(name: string): Promise<UserProps | undefined> {
 
-        connectDB()
+        await connectDB()
 
         const deletedMember = await this.usersModel.findOne({ name })
 

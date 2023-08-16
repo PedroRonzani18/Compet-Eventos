@@ -13,7 +13,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
 
     async findByTitle(title: string): Promise<ProjectProps | undefined> {
 
-        connectDB()
+        await connectDB()
 
         const competiano = await this.projectsModel.findOne({ title })
         const result: ProjectProps | undefined = competiano?.toJSON()
@@ -24,7 +24,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
     async create(data: ProjectProps): Promise<ProjectProps> {
         data.updated_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const model = new this.projectsModel(data)
 
@@ -39,7 +39,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
 
         data.updated_at = new Date()
 
-        connectDB()
+        await connectDB()
 
         const updatedMember = await this.projectsModel.findOneAndUpdate({ title }, data, { new: true })
 
@@ -50,7 +50,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
 
     async delete(title: string): Promise<ProjectProps | undefined> {
 
-        connectDB()
+        await connectDB()
 
         const deletedMember = await this.projectsModel.findOne({ title })
 

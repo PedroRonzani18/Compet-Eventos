@@ -2,15 +2,17 @@ import { makeCreateUserUseCase } from '@/modules/domain/usecases/users/factories
 import { makeFindUserByNameUseCase } from '@/modules/domain/usecases/users/factories/make-find-user-by-name-use-case';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
+import { hash } from 'bcryptjs'
 
 export const createUserBodySchema = z.object({
 	name: z.string(),
 	email: z.string(),
+	password: z.string(),
 	profile_picture: z.string().optional(),
 	linkedin_url: z.string().optional(),
 	github_url: z.string().optional(),
 	favourite_projects: z.array(z.string()).optional(),
-	role: z.string(),
+	role: z.string().optional().default("USER"),
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			.end(); // Method Not Allowed
 	}
 
-	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, } = createUserBodySchema.parse(req.body);
+	const { email, favourite_projects, github_url, linkedin_url, name, profile_picture, role, password } = createUserBodySchema.parse(req.body);
 
 	const findUserUseCase = makeFindUserByNameUseCase();
 
@@ -32,6 +34,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			.json({ error_message: "Proibido criar mais de um usuario com o mesmo nome." });
 	}
 
+	const password_hash = await hash(password, 6)
+
 	const createUserUseCase = makeCreateUserUseCase();
 
 	const user = await createUserUseCase.execute({
@@ -42,6 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		name,
 		profile_picture,
 		role,
+		password_hash
 	});
 
 	return res.status(201).json({ created_user: user.value });
