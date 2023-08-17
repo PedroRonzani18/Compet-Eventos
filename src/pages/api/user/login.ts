@@ -31,6 +31,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             .status(400)
             .json({ error_message: "Email e/ou senha inválido(s)." });
 
-    return res.status(201).json({ logged: true });
+    return res.status(201).json({
+        name: possibleUser.value.user.name,
+        email: possibleUser.value.user.email,
+        role: possibleUser.value.user.role
+    });
 
 }
