@@ -5,4 +5,5 @@ export interface ProjectsRepository {
     edit(projectName: string, data: EditProjectProps): Promise<ProjectProps | undefined>
     findByTitle(title: string): Promise<ProjectProps | undefined>
     delete(title: string): Promise<ProjectProps | undefined>
+    list() : Promise<ProjectProps[]>
 }

@@ -15,6 +15,12 @@ export const createProjectBodySchema = z.object({
 });
 
 export default async function handler(request: NextApiRequest, reply: NextApiResponse) {
+	
+	if (request.method !== 'POST') {
+		return reply
+			.status(405)
+			.end(); // Method Not Allowed
+	}
 
 	const { author, description, image, title, creating_user } = createProjectBodySchema.parse(request.body);
 
@@ -25,19 +31,17 @@ export default async function handler(request: NextApiRequest, reply: NextApiRes
 	if (validCreatingUser.isLeft())
 		return reply
 			.status(400)
-			.send({ message: "Usuario de criação invalido" })
+			.json({ message: "Usuario de criação invalido" })
 
 	const checkUserRoleUseCase = makeCheckUserRoleUseCase()
 
 	const roleIsEqual = await checkUserRoleUseCase.execute({ desired_role: "ADMIN", user_name: creating_user })
 
-	console.log(roleIsEqual)
-
 	if (roleIsEqual.isRight())
 		if (!roleIsEqual.value.equal_role)
 			return reply
 				.status(400)
-				.send({ message: "Usuario não autorizado" })
+				.json({ message: "Usuario não autorizado" })
 
 	const findProjectUseCase = makeFindProjectByTitleUseCase()
 
@@ -46,7 +50,7 @@ export default async function handler(request: NextApiRequest, reply: NextApiRes
 	if (foundProject.isRight())
 		return reply
 			.status(400)
-			.send({ message: "Proibido adicionar projetos com mesmo nome." })
+			.json({ message: "Proibido adicionar projetos com mesmo nome." })
 
 	const addible_members: UserProps[] = []
 
@@ -65,5 +69,5 @@ export default async function handler(request: NextApiRequest, reply: NextApiRes
 
 	return reply
 		.status(201)
-		.send({ project_created: project });
+		.json({ project_created: project });
 }

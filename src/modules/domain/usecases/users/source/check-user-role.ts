@@ -16,12 +16,16 @@ export class CheckUserRoleUseCase {
 
     constructor(private usersRepository: UsersRepository) { }
 
-    async execute({ desired_role, user_name }: CheckUserRoleUseCaseRequest): Promise<CheckUserRoleUseCaseResponse> {
+    async   execute({ desired_role, user_name }: CheckUserRoleUseCaseRequest): Promise<CheckUserRoleUseCaseResponse> {
 
         const user = await this.usersRepository.findByName(user_name)
 
         if (!user)
             return left(new ResourceNotFoundError("Usuario"))
+
+        console.log(user)
+
+        console.log(desired_role + " " + user.role)
 
         const roleEquals = (desired_role === user.role)
 

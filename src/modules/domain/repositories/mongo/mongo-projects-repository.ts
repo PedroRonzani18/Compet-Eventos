@@ -6,6 +6,7 @@ import connectDB from "@/modules/core/db/connect";
 
 export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectProps> implements ProjectsRepository {
 
+
     constructor(private projectsModel = ProjectModel) {
         super(projectsModel);
     }
@@ -31,7 +32,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
         const createdData = await model.save()
         if (!createdData) { throw new Error("Failed to create new Data") }
 
-        const result: ProjectProps = createdData.toJSON<ProjectProps>()
+        const result: ProjectProps = createdData.toJSON() as ProjectProps
         return result
     }
 
@@ -44,7 +45,7 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
         const updatedMember = await this.projectsModel.findOneAndUpdate({ title }, data, { new: true })
 
         if (!updatedMember) { return }
-        const result: ProjectProps | undefined = updatedMember.toJSON<ProjectProps>()
+        const result: ProjectProps | undefined = updatedMember.toJSON() as ProjectProps
         return result
     }
 
@@ -57,10 +58,17 @@ export class MongoProjectsRepository extends DefaultMongoDBRepository<ProjectPro
         if (!deletedMember) { return }
 
         await deletedMember.deleteOne();
-        return deletedMember.toJSON<ProjectProps>()
+        return deletedMember.toJSON as ProjectProps
     }
 
-    public list(): ProjectProps[] | Promise<ProjectProps[]> {
-        throw new Error("Method not implemented.");
+    async list(): Promise<ProjectProps[]> {
+
+        const projectList = await this.projectsModel.find();
+        
+        return projectList.map((projects) => {
+          const result: ProjectProps = projects.toJSON();
+          return result;
+        }); 
     }
+
 }
