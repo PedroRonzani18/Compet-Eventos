@@ -20,6 +20,13 @@ const config: Config = {
         "primary-white": "#FFFFFF",
         "primary-green": "#32CD32",
       },
+      flex: {
+        "2": "2 1 0%",
+        "3": "3 1 0%",
+      },
+      aspectRatio: {
+        "9/6": "9 / 6",
+      },
     },
   },
   plugins: [],
