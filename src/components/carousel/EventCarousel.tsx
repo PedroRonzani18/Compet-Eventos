@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const EventItem = ({ event }: { event: event }) => {
     return (
-        <Link href={`/events/${event.slug}`}>
+        <Link href={`/events/${event.slug}`} className="w-1/2 sm:w-1/3 lg:w-1/4 2xl:w-1/5">
             <div
                 className="flex justify-center flex-col bg-white rounded-xl overflow-hidden"
                 key={event.slug}
